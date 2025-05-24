@@ -9,8 +9,9 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        return response()->json($menus);
+        $menus = Menu::all(); // ambil semua data menu dari DB
+        // return response()->json($menus);
+        return view('admin.menu', compact('menus')); // lempar ke Blade
     }
 
     public function store(Request $request)
@@ -40,34 +41,27 @@ class MenuController extends Controller
 
     public function update(Request $request, $id)
     {
-        $menu = Menu::find($id);
+        $menu = Menu::findOrFail($id);
+        $menu->nama_menu = $request->nama_menu;
+        $menu->deskripsi = $request->deskripsi;
+        $menu->harga = $request->harga;
 
-        if (!$menu) {
-            return response()->json(['message' => 'Menu not found'], 404);
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('menu', 'public');
+            $menu->gambar = $path;
         }
 
-        $validated = $request->validate([
-            'nama_menu' => 'sometimes|required|string|max:100',
-            'deskripsi' => 'nullable|string',
-            'harga' => 'sometimes|required|numeric',
-            'gambar' => 'nullable|string|max:255',
-        ]);
+        $menu->save();
 
-        $menu->update($validated);
-
-        return response()->json($menu);
+        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil diupdate.');
     }
 
     public function destroy($id)
     {
-        $menu = Menu::find($id);
-
-        if (!$menu) {
-            return response()->json(['message' => 'Menu not found'], 404);
-        }
-
+        $menu = Menu::findOrFail($id);
         $menu->delete();
 
-        return response()->json(['message' => 'Menu deleted successfully']);
+        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil dihapus.');
     }
-}
+
+    }
