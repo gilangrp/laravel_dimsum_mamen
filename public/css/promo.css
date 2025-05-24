@@ -1,0 +1,461 @@
+:root {
+    --primary: #e69b0f;
+    --bg: #010101;
+    --second: #ffffff;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: none;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    height: 1000px;
+  }
+  
+  /* navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 7%;
+    font-weight: 800;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--second);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .navbar .navbar-logo span {
+    color: var(--primary);
+  }
+  
+  .navbar .navbar-logo {
+    color: var(--second);
+    font-size: 28px;
+    font-style: italic;
+  }
+  
+  .navbar .navbar-nav a {
+    margin: 0 10px;
+    font-size: 18px;
+    color: var(--second);
+    display: inline-block;
+  }
+  
+  .navbar .navbar-nav a:hover {
+    color: var(--primary);
+  }
+  
+  .navbar .navbar-nav a::after {
+    content: "";
+    display: block;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--primary);
+    transform: scaleX(0);
+    transition: 0.2s linear;
+  }
+  
+  .navbar .navbar-nav a:hover::after {
+    transform: scaleX(0.5);
+  }
+  
+  /* Carosel */
+  .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+  }
+  
+  .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-item {
+      min-width: 100%;
+      height: 600px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+  }
+  
+  .carousel-text {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)); 
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      transform: translateY(100%); 
+      transition: transform 0.5s ease-in-out;
+  }
+  
+  .carousel-item:hover .carousel-text {
+      transform: translateY(0);
+  }
+  
+  /* Animasi teks muncul */
+  @keyframes slideUp {
+      from {
+          transform: translateY(100%);
+      }
+      to {
+          transform: translateY(0);
+      }
+  }
+  
+  .carousel-item.active .carousel-text {
+      animation: slideUp 0.5s ease-in-out forwards;
+  }
+  
+  .menu {
+    padding: 8rem 7% 1.4rem;
+    gap: 20px;
+  }
+  
+  .menu .menu-img {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menu .menu-img .menu-card {
+    padding: 20px;
+    margin: 16px;
+    background-color: var(--second);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .menu .menu-img .menu-card .menu-card-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+  }
+  
+  .menu .menu-img .menu-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu-card-title {
+    color: black;
+  }
+  
+  .order-btn {
+      display: block; /* Membuat tombol full width */
+      width: 100%; /* Lebar penuh */
+      padding: 10px 0; /* Tambahkan jarak vertikal */
+      margin-top: 18px;
+      text-align: center; /* Pusatkan teks */
+      background-color: #FFA500; /* Warna tombol */
+      color: white; /* Warna teks */
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px; /* Membuat sudut membulat */
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+  }
+  
+  .order-btn:hover {
+      background-color: #e69500; /* Warna saat hover */
+  }
+  
+  
+  .contact {
+    padding: 8rem 7% 1.4rem;
+  }
+  
+  .contact .row .icon {
+    color: white;
+  }
+  
+  .contact .row {
+    display: flex;
+    margin-top: 2rem;
+    background-color: #222;
+  }
+  
+  .contact .row .map {
+    flex: 1 1 45rem;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .contact .row form {
+    flex: 1 1 45rem;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  
+  .contact .row form .input-group {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    background-color: var(--bg);
+    border: 1px solid #eee;
+    padding-left: 2rem;
+  }
+  
+  .contact .row form .input-group input {
+    width: 100%;
+    padding: 1.4rem;
+    font-size: 1.4rem;
+    background: none;
+    color: white;
+  }
+  
+  .contact .row form .btn {
+    margin-top: 3rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.7rem;
+    color: white;
+    background-color: var(--primary);
+    cursor: pointer;
+  }
+  
+  footer {
+    background-color: var(--primary);
+    text-align: center;
+    padding: 1rem 0 3rem;
+    margin-top: 3rem;
+  }
+  
+  footer .socials {
+    padding: 1rem 0;
+  }
+  
+  footer .socials a {
+    color: white;
+    margin: 1rem;
+  }
+  
+  footer .socials a:hover,
+  footer .links a:hover {
+    color: var(--bg);
+  }
+  
+  footer .links {
+    margin-bottom: 1.4rem;
+  }
+  
+  footer .links a {
+    color: white;
+    padding: 0.7rem 1rem;
+  }
+  
+  footer .credit {
+    font-size: 0.8rem;
+  }
+  
+  footer .credit a {
+    color: var(--bg);
+    font-weight: 700;
+  }
+  
+  .promo-header {
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+  }
+  .promo-header h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #e63946;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  .promo-header h2:after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 4px;
+    background: linear-gradient(90deg, #e63946, #f1faee);
+    bottom: -10px;
+    left: 15%;
+    border-radius: 2px;
+  }
+  .promo-header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .countdown {
+    background-color: #e63946;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem auto;
+    max-width: 500px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Special Offer Banner */
+  .special-offer {
+    background: linear-gradient(135deg, var(--primary), #f8c537);
+    padding: 2rem 7%;
+    margin: 3rem 7%;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .offer-content h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .offer-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .btn-offer {
+    background-color: white;
+    color: var(--primary);
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-offer:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  /* Modal Kupon Klaim */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  
+  .close-modal:hover {
+    color: #333;
+  }
+  
+  .modal-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .modal h3 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .coupon-code {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+  }
+  
+  .coupon-code p {
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .code {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+    letter-spacing: 2px;
+    padding: 10px;
+    background-color: #fff;
+    border: 2px dashed var(--primary);
+    border-radius: 5px;
+  }
+  
+  .modal-note {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .btn-modal {
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 16px;
+  }
+  
+  .btn-modal:hover {
+    background-color: #d18a0c;
+    transform: translateY(-2px);
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
