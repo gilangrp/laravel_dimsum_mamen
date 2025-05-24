@@ -35,6 +35,10 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::get('/menu', function () {
+    return view('menu');
+});
+
 Route::middleware('auth')->group(function (): void {
     Route::get('/payment', function () {
         return view('payment');
@@ -48,6 +52,6 @@ Route::middleware('auth')->group(function (): void {
 });
 
 
-
-
 require __DIR__.'/auth.php';
+
+?>
