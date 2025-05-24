@@ -64,11 +64,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 
 // API Backend route
-Route::apiResource('api/menu', MenuController::class);
-Route::apiResource('api/promo', PromoController::class);
-Route::apiResource('api/order', OrderController::class);
-Route::apiResource('api/order-detail', OrderDetailController::class);
-Route::apiResource('api/payment', PaymentController::class);
+// Route::apiResource('api/menu', MenuController::class);
+// Route::apiResource('api/promo', PromoController::class);
+// Route::apiResource('api/order', OrderController::class);
+// Route::apiResource('api/order-detail', OrderDetailController::class);
+// Route::apiResource('api/payment', PaymentController::class);
 
 
 require __DIR__.'/auth.php';

@@ -9,7 +9,7 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="bg-dark text-white p-3" style="width: 200px; height: 100vh;">
-            <h4>Admin Panel</h4>
+            <h4>Management Admin</h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">Dashboard</a>

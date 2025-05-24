@@ -31,7 +31,7 @@
                             </button>
 
                             <!-- Tombol Delete -->
-                            <form action="{{ route('menu.destroy', $menu->id) }}" method="POST" class="d-inline"
+                            <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" class="d-inline"
                                   onsubmit="return confirm('Are you sure you want to delete this menu?')">
                                 @csrf
                                 @method('DELETE')
@@ -43,7 +43,7 @@
                                 aria-labelledby="editModalLabel{{ $menu->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="{{ route('menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="modal-header">
@@ -84,4 +84,11 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    const menus = @json($menus);
+    console.log('List menu-menu:', menus);
+</script>
 @endsection
