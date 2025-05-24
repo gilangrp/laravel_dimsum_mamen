@@ -42,9 +42,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         'destroy' => 'menu.destroy',
     ]);
 
-    Route::resource('promo', PromoController::class)->only(['index'])->names([
-        'index' => 'promo.index'
+    Route::resource('promo', PromoController::class)->except(['show', 'create'])->names([
+        'index' => 'promo.index',
+        'store' => 'promo.store',
+        'update' => 'promo.update',
+        'destroy' => 'promo.destroy',
     ]);
+
 
     Route::resource('order', OrderController::class)->only(['index'])->names([
         'index' => 'order.index'

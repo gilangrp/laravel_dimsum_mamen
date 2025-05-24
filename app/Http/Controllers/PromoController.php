@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Promo;
@@ -9,8 +8,11 @@ class PromoController extends Controller
 {
     public function index()
     {
-        return Promo::all();
+        $promos = Promo::all();
+        //  dd($promos);
+        return view('admin.promo', compact('promos'));
     }
+
 
     public function store(Request $request)
     {
@@ -22,8 +24,11 @@ class PromoController extends Controller
             'tanggal_akhir' => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
-        return Promo::create($request->all());
+        Promo::create($request->all());
+
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil ditambahkan.');
     }
+
 
     public function show($id)
     {
@@ -43,14 +48,16 @@ class PromoController extends Controller
         ]);
 
         $promo->update($request->all());
-        return $promo;
+
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {
         $promo = Promo::findOrFail($id);
         $promo->delete();
 
-        return response()->json(['message' => 'Promo deleted successfully.']);
+        return redirect()->route('admin.promo.index')->with('success', 'Promo berhasil dihapus.');
     }
 }
