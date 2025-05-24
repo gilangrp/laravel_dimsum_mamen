@@ -23,9 +23,10 @@ class MenuController extends Controller
             'gambar' => 'nullable|string|max:255',
         ]);
 
-        $menu = Menu::create($validated);
+        Menu::create($validated);
 
-        return response()->json($menu, 201);
+        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan.');
+
     }
 
     public function show($id)

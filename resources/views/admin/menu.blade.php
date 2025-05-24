@@ -4,6 +4,13 @@
     <div class="container mt-4">
         <h2>Daftar Menu</h2>
 
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -32,10 +39,10 @@
 
                             <!-- Tombol Delete -->
                             <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" class="d-inline"
-                                  onsubmit="return confirm('Are you sure you want to delete this menu?')">
+                                  onsubmit="return confirm('Yakin hapus menu ini?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-sm btn-danger">Delete</button>
+                                <button class="btn btn-sm btn-danger">Hapus</button>
                             </form>
 
                             <!-- Modal Edit -->
@@ -70,8 +77,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                             </div>
                                         </form>
                                     </div>
