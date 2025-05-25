@@ -7,15 +7,12 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Middleware\IsAdmin;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
 
 // Admin Page
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', IsAdmin::class])->name('admin.')->group(function () {
     Route::get('/', fn () => view('admin.dashboard'))->name('dashboard');
 
     // Sesuaikan nama dan resource controller
