@@ -10,6 +10,21 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
+        <!-- Tombol Tambah Menu -->
+        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahMenuModal">
+            + Tambah Menu
+        </button>
 
         <table class="table table-striped">
             <thead>
@@ -60,20 +75,20 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label for="nama_menu{{ $menu->id }}" class="form-label">Nama Menu</label>
-                                                    <input type="text" name="nama_menu" class="form-control" id="nama_menu{{ $menu->id }}" value="{{ $menu->nama_menu }}">
+                                                    <label class="form-label">Nama Menu</label>
+                                                    <input type="text" name="nama_menu" class="form-control" value="{{ $menu->nama_menu }}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="deskripsi{{ $menu->id }}" class="form-label">Deskripsi</label>
-                                                    <textarea name="deskripsi" class="form-control" id="deskripsi{{ $menu->id }}">{{ $menu->deskripsi }}</textarea>
+                                                    <label class="form-label">Deskripsi</label>
+                                                    <textarea name="deskripsi" class="form-control">{{ $menu->deskripsi }}</textarea>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="harga{{ $menu->id }}" class="form-label">Harga</label>
-                                                    <input type="number" name="harga" class="form-control" id="harga{{ $menu->id }}" value="{{ $menu->harga }}">
+                                                    <label class="form-label">Harga</label>
+                                                    <input type="number" name="harga" class="form-control" value="{{ $menu->harga }}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="gambar{{ $menu->id }}" class="form-label">Gambar (biarkan kosong jika tidak diganti)</label>
-                                                    <input type="file" name="gambar" class="form-control" id="gambar{{ $menu->id }}">
+                                                    <label class="form-label">Gambar (biarkan kosong jika tidak diganti)</label>
+                                                    <input type="file" name="gambar" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -90,6 +105,44 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+
+    <!-- Modal Tambah Menu -->
+    <div class="modal fade" id="tambahMenuModal" tabindex="-1" aria-labelledby="tambahMenuLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('admin.menu.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tambahMenuLabel">Tambah Menu Baru</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Menu</label>
+                            <input type="text" name="nama_menu" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea name="deskripsi" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Harga</label>
+                            <input type="number" name="harga" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Gambar</label>
+                            <input type="file" name="gambar" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Tambah Menu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 

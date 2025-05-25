@@ -16,14 +16,14 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nama_menu' => 'required|string|max:100',
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric',
             'gambar' => 'nullable|string|max:255',
         ]);
 
-        Menu::create($validated);
+        Menu::create($request->all());
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan.');
 

@@ -33,14 +33,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/', fn () => view('admin.dashboard'))->name('dashboard');
 
     // Sesuaikan nama dan resource controller
-    Route::resource('menu', MenuController::class)->except(['show'])->names([
+    Route::resource('menu', MenuController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->names([
         'index' => 'menu.index',
-        'create' => 'menu.create',
         'store' => 'menu.store',
-        'edit' => 'menu.edit',
         'update' => 'menu.update',
         'destroy' => 'menu.destroy',
     ]);
+
 
     Route::resource('promo', PromoController::class)->except(['show', 'create'])->names([
         'index' => 'promo.index',
