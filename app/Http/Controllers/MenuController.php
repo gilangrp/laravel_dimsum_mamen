@@ -16,14 +16,19 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // dd($request->all());
+        // \Log::info($request->all());
+        $validated = $request->validate([
             'nama_menu' => 'required|string|max:100',
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric',
-            'gambar' => 'nullable|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Menu::create($request->all());
+        $path = $request->file('gambar')->store('menu', 'public');
+        $validated['gambar'] = $path;
+
+        Menu::create($validated);
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan.');
 
@@ -39,23 +44,27 @@ class MenuController extends Controller
 
         return response()->json($menu);
     }
-
     public function update(Request $request, $id)
     {
         $menu = Menu::findOrFail($id);
-        $menu->nama_menu = $request->nama_menu;
-        $menu->deskripsi = $request->deskripsi;
-        $menu->harga = $request->harga;
+
+        $validated = $request->validate([
+            'nama_menu' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric|min:0',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('menu', 'public');
-            $menu->gambar = $path;
+            $validated['gambar'] = $path;
         }
 
-        $menu->save();
+        $menu->update($validated);
 
-        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil diupdate.');
+        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {
@@ -65,4 +74,4 @@ class MenuController extends Controller
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil dihapus.');
     }
 
-    }
+}
