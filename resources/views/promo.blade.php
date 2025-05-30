@@ -58,65 +58,22 @@
     <!-- Menu Start -->
     <section class="menu">
         <div class="menu-img">
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/DIMSUM MENTAI MOZARELLA.jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Jamur</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 30 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/Dimsum with chili oil.jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Beef</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 20 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/download (1).jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Ikan</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 15 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/download (2).jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Wortel</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 15 April 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/Lazeez Kitchen - Melanao Indonesia.jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Udang</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 30 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/Lazeez Kitchen - Melanao Indonesia.jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Kepiting</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 30 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/mentai dimsum.jpg" alt="" class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Mentai</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 30 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
-            <a href="payment.html" class="menu-card">
-                <img src="IMG/Premium Photo _ Siomay or su mai or steamed dumpling dimsum.jpg" alt=""
-                    class="menu-card-img">
-                <h3 class="menu-card-title">Dimsum Chilli Oil</h3>
-                <p class="menu-card-title">Rp 10.000</p>
-                <p class="menu-card-title">Berlaku Hingga 30 Maret 2025</p>
-                <button class="order-btn">Pesan Sekarang</button>
-            </a>
+            @forelse ($promos as $promo)
+                <a href="/payment" class="menu-card">
+                    <img src="{{ asset('storage/' . $promo->gambar) }}" alt="{{ $promo->nama_promo }}"
+                        class="menu-card-img">
+                    <h3 class="menu-card-title">{{ $promo->nama_promo }}</h3>
+                    <p class="menu-card-title">Rp {{ number_format($promo->harga, 0, ',', '.') }}</p>
+                    <p class="menu-card-title">Berlaku Hingga
+                        {{ \Carbon\Carbon::parse($promo->tanggal_akhir)->translatedFormat('d F Y') }}</p>
+                    <button class="order-btn">Pesan Sekarang</button>
+                </a>
+            @empty
+                <p>Tidak ada promo tersedia saat ini.</p>
+            @endforelse
         </div>
     </section>
+
     <!-- Menu End -->
 
     <!-- Special Offer Banner -->

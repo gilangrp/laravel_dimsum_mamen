@@ -1,99 +1,83 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Halaman utama (public)
+Route::get('/', fn () => view('welcome'));
 
-Route::middleware('auth')->group(function (): void {
-Route::get('/promo', function () {
-    return view('promo.promo');
-});
-});
+// Halaman Home (public)
+Route::get('/home', fn () => view('home'));
 
+// Dashboard user (butuh login dan verifikasi)
+Route::get('/dashboard', fn () => view('dashboard'))
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+// Grup route yang membutuhkan autentikasi
 Route::middleware('auth')->group(function () {
+    
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
+    // Halaman About Us (user)
+    Route::get('/about_us', fn () => view('about_us'));
+
+    // Halaman Menu (user)
+    Route::get('/menu', [MenuController::class, 'userIndex'])->name('menu');
+
+    // Halaman Promo (user)
+    Route::get('/promo', [PromoController::class, 'userIndex'])->name('promo');
+
+    // Halaman Payment (user)
+    Route::get('/payment', fn () => view('payment'));
 });
 
-Route::middleware('auth')->group(function (): void {
-    Route::get('/about_us', function () {
-        return view('about_us.about_us');
-    });
-});
-
-Route::get('/home', function () {
-    return view('home');
-});
-
-
-
-// Admin Page
+// Grup route untuk admin
 Route::prefix('admin')->middleware(['auth', IsAdmin::class])->name('admin.')->group(function () {
+
+    // Dashboard Admin
     Route::get('/', fn () => view('admin.dashboard'))->name('dashboard');
 
-    // Sesuaikan nama dan resource controller
-    Route::resource('menu', MenuController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    ->names([
-        'index' => 'menu.index',
-        'store' => 'menu.store',
-        'update' => 'menu.update',
+    // Manajemen Menu
+    Route::resource('menu', MenuController::class)->only(['index', 'store', 'update', 'destroy'])->names([
+        'index'   => 'menu.index',
+        'store'   => 'menu.store',
+        'update'  => 'menu.update',
         'destroy' => 'menu.destroy',
     ]);
 
-
+    // Manajemen Promo
     Route::resource('promo', PromoController::class)->except(['show', 'create'])->names([
-        'index' => 'promo.index',
-        'store' => 'promo.store',
-        'update' => 'promo.update',
+        'index'   => 'promo.index',
+        'store'   => 'promo.store',
+        'update'  => 'promo.update',
         'destroy' => 'promo.destroy',
     ]);
 
-
+    // Manajemen Order
     Route::resource('order', OrderController::class)->only(['index'])->names([
-        'index' => 'order.index'
+        'index' => 'order.index',
     ]);
 
+    // Manajemen Order Detail
     Route::resource('order-detail', OrderDetailController::class)->only(['index'])->names([
-        'index' => 'order-detail.index'
+        'index' => 'order-detail.index',
     ]);
 
+    // Manajemen Payment
     Route::resource('payment', PaymentController::class)->only(['index'])->names([
-        'index' => 'payment.index'
+        'index' => 'payment.index',
     ]);
 });
 
-
-
-Route::middleware('auth')->group(function (): void {
-    Route::get('/payment', function () {
-        return view('payment');
-    });
-});
-
-Route::middleware('auth')->group(function (): void {
-    Route::get('menu', [MenuController::class, 'userIndex'])->name('menu');
-});
-
-
-
+// Auth scaffolding (Laravel Breeze / Jetstream / Fortify)
 require __DIR__.'/auth.php';
-
-?>
