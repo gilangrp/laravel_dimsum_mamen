@@ -14,6 +14,12 @@ class MenuController extends Controller
         return view('admin.menu', compact('menus')); // lempar ke Blade
     }
 
+
+    public function userIndex()
+    {
+        $menus = Menu::all();
+        return view('menu', compact('menus')); // resources/views/menu.blade.php
+    }
     public function store(Request $request)
     {
         // dd($request->all());
