@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PromoController;
@@ -13,6 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->group(function (): void {
+Route::get('/promo', function () {
+    return view('promo.promo');
+});
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -22,7 +29,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
+
+Route::middleware('auth')->group(function (): void {
+    Route::get('/about_us', function () {
+        return view('about_us.about_us');
+    });
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 
 
 // Admin Page
@@ -62,15 +81,24 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->name('admin.')->gr
 });
 
 
-    
+Route::get('/menu', function () {
+    return view('menu');
+});
 
+Route::middleware('auth')->group(function (): void {
+    Route::get('/payment', function () {
+        return view('payment');
+    });
+});
 
-// API Backend route
-// Route::apiResource('api/menu', MenuController::class);
-// Route::apiResource('api/promo', PromoController::class);
-// Route::apiResource('api/order', OrderController::class);
-// Route::apiResource('api/order-detail', OrderDetailController::class);
-// Route::apiResource('api/payment', PaymentController::class);
+Route::middleware('auth')->group(function (): void {
+    Route::get('menu', function () {
+        return view('menu');
+    });
+});
+
 
 
 require __DIR__.'/auth.php';
+
+?>
