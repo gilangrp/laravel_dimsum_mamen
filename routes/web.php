@@ -81,9 +81,6 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->name('admin.')->gr
 });
 
 
-Route::get('/menu', function () {
-    return view('menu');
-});
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/payment', function () {
@@ -92,9 +89,7 @@ Route::middleware('auth')->group(function (): void {
 });
 
 Route::middleware('auth')->group(function (): void {
-    Route::get('menu', function () {
-        return view('menu');
-    });
+    Route::get('menu', [MenuController::class, 'userIndex'])->name('menu');
 });
 
 
