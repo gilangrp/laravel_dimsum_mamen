@@ -13,6 +13,13 @@ class PromoController extends Controller
         return view('admin.promo', compact('promos'));
     }
 
+    public function userIndex()
+    {
+        $promos = Promo::all();
+        return view('promo', compact('promos')); // user view
+    }
+
+
 
     public function store(Request $request)
     {

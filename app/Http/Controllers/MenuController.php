@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class MenuController extends Controller
 {
     public function index()
@@ -17,7 +17,8 @@ class MenuController extends Controller
 
     public function userIndex()
     {
-        $menus = Menu::all();
+        // $menus = Menu::all();
+        $menus = DB::select("SELECT * FROM menus");
         return view('menu', compact('menus')); // resources/views/menu.blade.php
     }
     public function store(Request $request)
